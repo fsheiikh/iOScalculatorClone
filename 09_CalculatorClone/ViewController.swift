@@ -20,20 +20,23 @@ class ViewController: UIViewController {
     @IBAction func numClick(sender: AnyObject) {
         print(sender.tag)
         
+        //checks to see if it is a number and appends the number to the main label
         (sender.tag < 10) ? (lblTotal.text?.appendContentsOf(String(sender.tag))) :
             ((sender.tag == 10) ? (lblTotal.text = "") :
                 (lblTotal.text?.appendContentsOf(".")))
         
+        //keep track of number entered in numTotal
         numTotal = (lblTotal.text! as NSString).doubleValue
         
         print(numTotal)
     }
     
     @IBAction func btnCalc(sender: AnyObject) {
-        tempTotal = numTotal
+        tempTotal = numTotal //save numTotal and reset it to get second number for computing
         lblTotal.text = ""
         numTotal = 0
         
+        //get the action needed to do and save it in a amethod variable
         if(sender.tag == 13) {method = "Divide"}
         else if(sender.tag == 14) {method = "Multiply"}
         else if(sender.tag == 15) {method = "Subtract"}
@@ -42,6 +45,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func btnEquals(sender: UIButton) {
+        //determine action to take based n method variable
         switch method {
         case "Add":
             afterCalc = tempTotal + numTotal
@@ -59,40 +63,26 @@ class ViewController: UIViewController {
     }
     
     @IBAction func btnManipulate(sender: AnyObject) {
-        if(sender.tag == 10)
+        if(sender.tag == 10) //if clicked C or clear
         {
             numTotal = 0;
             tempTotal = 0;
             afterCalc = 0
             lblTotal.text = ""
         }
-        else if(sender.tag == 11)
+        else if(sender.tag == 11) //if clicked negative/positive
         {
-            if(method == "")
-            {
-                numTotal = numTotal * -1
-                lblTotal.text = String(numTotal)
-            }
-            else
-            {
-                tempTotal = tempTotal * -1
-                lblTotal.text = String(tempTotal)
 
-            }
+            numTotal = numTotal * -1
+            lblTotal.text = String(numTotal)
+
         }
-        else if(sender.tag == 12)
+        else if(sender.tag == 12) //if clicked percentage %
         {
-            if(method == "")
-            {
-                numTotal = numTotal / 100.00
-                lblTotal.text = String(numTotal)
-            }
-            else
-            {
-                tempTotal = tempTotal / 100.00
-                lblTotal.text = String(tempTotal)
-                
-            }
+
+            numTotal = numTotal / 100.00
+            lblTotal.text = String(numTotal)
+
         }
     }
     
